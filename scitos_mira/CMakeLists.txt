@@ -90,6 +90,7 @@ MIRA_REQUIRE_PACKAGE(SCITOS 0.23.1)
 
 ## Declare a cpp executable
 #add_executable(scitos_node src/scitos_node.cpp)
+add_executable(odom_correction  src/odom_correction.cpp)
 add_executable(scitos_node  src/scitos_node.cpp 
 							src/ScitosModule.cpp  
 							src/ModuleFactory.cpp 
