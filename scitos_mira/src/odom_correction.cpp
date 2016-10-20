@@ -24,13 +24,13 @@ void odomCallback(const nav_msgs::Odometry &msg)
 
 int main(int argc,char* argv[])
 {
-	lastX=lastY=corrX=corrY=0;
+	/*lastX=lastY=corrX=corrY=0;
 	ros::init(argc, argv, "odom_correction");
 	nh = new ros::NodeHandle;
 
 	ros::Subscriber subodo = nh->subscribe("odom_raw", 1, odomCallback);
 
-	ros::spin();
+	ros::spin();*/
 
 	return 0;
 }
