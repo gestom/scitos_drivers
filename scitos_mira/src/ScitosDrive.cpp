@@ -19,7 +19,8 @@ ScitosDrive::ScitosDrive() : ScitosModule(std::string ("Drive")) {
 }
 
 void ScitosDrive::initialize() {
-  odometry_pub_ = robot_->getRosNode().advertise<nav_msgs::Odometry>("/odom", 20);
+  robot_->getRosNode().param<std::string>("odometryName", odomName, "odom");
+  odometry_pub_ = robot_->getRosNode().advertise<nav_msgs::Odometry>(odomName, 20);
   bumper_pub_ = robot_->getRosNode().advertise<std_msgs::Bool>("/bumper", 20);
   mileage_pub_ = robot_->getRosNode().advertise<std_msgs::Float32>("/mileage", 20);
   motorstatus_pub_ = robot_->getRosNode().advertise<scitos_msgs::MotorStatus>("/motor_status", 20);
@@ -128,7 +129,7 @@ void ScitosDrive::odometry_data_callback(mira::ChannelRead<mira::robot::Odometry
 	// Publish as a nav_msgs::Odometry
 	nav_msgs::Odometry odom_msg;
 	odom_msg.header.stamp = odom_time;
-	odom_msg.header.frame_id = "/odom";
+	odom_msg.header.frame_id = odomName;
 	odom_msg.child_frame_id = "/base_footprint";
 
 	// set the position
@@ -145,7 +146,7 @@ void ScitosDrive::odometry_data_callback(mira::ChannelRead<mira::robot::Odometry
 	// Publish a TF
 	geometry_msgs::TransformStamped odom_tf;
 	odom_tf.header.stamp = odom_time;
-	odom_tf.header.frame_id = "/odom";
+	odom_tf.header.frame_id = odomName;
 	odom_tf.child_frame_id = "/base_footprint";
 
 	odom_tf.transform.translation.x = data->value().pose.x();
