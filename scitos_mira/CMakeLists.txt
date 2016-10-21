@@ -104,6 +104,7 @@ add_executable(scitos_node  src/scitos_node.cpp
 add_dependencies(scitos_node ${PROJECT_NAME}_gencfg scitos_msgs_gencpp) 
 
 target_link_libraries(scitos_node ${catkin_LIBRARIES})
+target_link_libraries(odom_correction ${catkin_LIBRARIES})
 
 
 ## Add cmake target dependencies of the executable/library
