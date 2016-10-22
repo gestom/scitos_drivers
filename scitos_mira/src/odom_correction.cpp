@@ -88,7 +88,7 @@ int main(int argc,char* argv[])
 
 	ros::param::param("~odometryIn", odometryIn, odometryIn);
 	ros::param::param("~odometryOut", odometryOut, odometryOut);
-	tfPub = tf::TransformBroadcaster();
+	tfPub = new tf::TransformBroadcaster();
 	ros::Subscriber odomSub = nh->subscribe(odometryIn, 1, odomCallback);
 	odomPub = nh->advertise<nav_msgs::Odometry>(odometryOut, 1);
 
