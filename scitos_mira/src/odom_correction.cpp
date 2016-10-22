@@ -14,6 +14,8 @@ double s,ss;
 
 ros::Publisher odomPub;
 tf::TransformBroadcaster *tfPub;
+std::string odometryIn = "odom";
+std::string odometryOut = "odom_corr";
 
 void odomCallback(const nav_msgs::Odometry &msg)
 {
@@ -68,7 +70,7 @@ void odomCallback(const nav_msgs::Odometry &msg)
 	//finally, publish a transform as well
 	geometry_msgs::TransformStamped tf;
 	tf.header.stamp = msg.header.stamp;
-	tf.header.frame_id = "/odom_corr";
+	tf.header.frame_id = odometryOut;
 	tf.child_frame_id = "/base_footprint";
 
 	geometry_msgs::TransformStamped odom_tf;
@@ -84,8 +86,10 @@ int main(int argc,char* argv[])
 	ros::init(argc, argv, "odom_correction");
 	ros::NodeHandle *nh = new ros::NodeHandle(); 
 
-	ros::Subscriber odomSub = nh->subscribe("odom", 1, odomCallback);
-	odomPub = nh->advertise<nav_msgs::Odometry>("/odom_corr", 1);
+	ros::param::param("~odometryIn", odometryIn, odometryIn);
+	ros::param::param("~odometryOut", odometryOut, odometryOut);
+	ros::Subscriber odomSub = nh->subscribe(odometryIn, 1, odomCallback);
+	odomPub = nh->advertise<nav_msgs::Odometry>(odometryOut, 1);
 
 	ros::spin();
 
