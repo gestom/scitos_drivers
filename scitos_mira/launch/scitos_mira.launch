@@ -17,12 +17,12 @@
 		<param name="config_file" value="$(arg SCITOS_CONFIG)" type="string"/>
 		<param name="scitos_modules" value="$(arg SCITOS_MODULES)" />
 		<param name="magnetic_barrier_enabled" value="$(arg BARRIER_ENABLED)" />
-		<param name="odometryName" value="odom_raw"/>
+		<param name="odometryName" value="/odom_raw"/>
 	</node>
 
 	<node pkg="scitos_mira" type="odom_correction" name="odom_correction" output="screen" respawn="true">
-		<param name="odometryIn" value="odom_raw"/>
-		<param name="odometryOut" value="odom"/>
+		<param name="odometryIn" value="/odom_raw"/>
+		<param name="odometryOut" value="/odom"/>
 	</node>
 
 </launch>
