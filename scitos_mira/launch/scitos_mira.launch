@@ -20,7 +20,7 @@
 		<param name="odometryName" value="odom_raw"/>
 	</node>
 
-	<node pkg="scitos_mira" type="odometry_correction" name="odometry_correction" output="screen" respawn="true">
+	<node pkg="scitos_mira" type="odom_correction" name="odom_correction" output="screen" respawn="true">
 		<param name="odometryIn" value="odom_raw"/>
 		<param name="odometryOut" value="odom"/>
 	</node>
