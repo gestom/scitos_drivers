@@ -18,6 +18,7 @@
 		<param name="scitos_modules" value="$(arg SCITOS_MODULES)" />
 		<param name="magnetic_barrier_enabled" value="$(arg BARRIER_ENABLED)" />
 		<param name="odometryName" value="/odom_raw"/>
+		<param name="publishTF" value="false"/>
 	</node>
 
 	<node pkg="scitos_mira" type="odom_correction" name="odom_correction" output="screen" respawn="true">

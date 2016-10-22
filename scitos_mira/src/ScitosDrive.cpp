@@ -20,8 +20,9 @@ ScitosDrive::ScitosDrive() : ScitosModule(std::string ("Drive")) {
 
 void ScitosDrive::initialize() {
 	odomName = "odom";
+	publishTF = true;
 	ros::param::param("~odometryName", odomName, odomName);
-	robot_->getRosNode().param<std::string>("odometryName", odomName, "odom");
+	ros::param::param("~publishTF", publishTF, publishTF);
 	odometry_pub_ = robot_->getRosNode().advertise<nav_msgs::Odometry>(odomName, 20);
 	bumper_pub_ = robot_->getRosNode().advertise<std_msgs::Bool>("/bumper", 20);
 	mileage_pub_ = robot_->getRosNode().advertise<std_msgs::Float32>("/mileage", 20);
@@ -145,18 +146,20 @@ void ScitosDrive::odometry_data_callback(mira::ChannelRead<mira::robot::Odometry
 
 	odometry_pub_.publish(odom_msg);
 
-	// Publish a TF
-	geometry_msgs::TransformStamped odom_tf;
-	odom_tf.header.stamp = odom_time;
-	odom_tf.header.frame_id = odomName;
-	odom_tf.child_frame_id = "/base_footprint";
+	if (publishTF){
+		// Publish a TF
+		geometry_msgs::TransformStamped odom_tf;
+		odom_tf.header.stamp = odom_time;
+		odom_tf.header.frame_id = odomName;
+		odom_tf.child_frame_id = "/base_footprint";
 
-	odom_tf.transform.translation.x = data->value().pose.x();
-	odom_tf.transform.translation.y = data->value().pose.y();
-	odom_tf.transform.translation.z = 0.0;
-	odom_tf.transform.rotation = orientation;
-	// send the transform
-	robot_->getTFBroadcaster().sendTransform(odom_tf);
+		odom_tf.transform.translation.x = data->value().pose.x();
+		odom_tf.transform.translation.y = data->value().pose.y();
+		odom_tf.transform.translation.z = 0.0;
+		odom_tf.transform.rotation = orientation;
+		// send the transform
+		robot_->getTFBroadcaster().sendTransform(odom_tf);
+	}
 }
 
 bool ScitosDrive::reset_motor_stop(scitos_msgs::ResetMotorStop::Request  &req, scitos_msgs::ResetMotorStop::Response &res) {

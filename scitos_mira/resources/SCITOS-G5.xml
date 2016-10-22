@@ -9,12 +9,16 @@
 			<MainControlUnit>
 				<OdometryInterval>50</OdometryInterval>
 				<ResetOdometryOnStart>false</ResetOdometryOnStart>
-				<Force>80</Force>
+				<Force>120</Force>
 				<RFIDReaderEnabled>true</RFIDReaderEnabled>
 				<FrontLaser>
 					<MaxCurrent>2.5</MaxCurrent>
 					<Enabled>true</Enabled>
 				</FrontLaser>
+				<RearLaser>
+					<MaxCurrent>2.5</MaxCurrent>
+					<Enabled>false</Enabled>
+				</RearLaser>
 				<EBC_5V>
 					<MaxCurrent>2.5</MaxCurrent>
 					<Enabled>true</Enabled>

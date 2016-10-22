@@ -72,6 +72,7 @@ private:
 	std_msgs::Bool emergency_stop_;
 	scitos_msgs::BarrierStatus barrier_status_;
 	std::string odomName;
+	bool publishTF;
 };
 
 #endif
